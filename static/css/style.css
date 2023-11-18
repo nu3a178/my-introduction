@@ -1,0 +1,33 @@
+.body{
+    height:100%;
+}
+.container{
+    padding:100px;
+    text-align: center;
+    color:dimgrey;
+    font-size:36px;
+}
+.fixed-button{
+    position: fixed;
+    bottom: 10px; 
+    right: 10px;
+    padding: 6px 40px;
+    
+}
+.greeting{
+    font-family:"Hiragino Sans";
+    font-size:60px
+}
+.row{
+    padding:50px;
+}
+.rounded{
+    border-radius: 10px;
+}
+.background{
+    background: linear-gradient(to bottom right, rgb(236, 236, 236), rgb(255, 233, 237));
+    height:200%;
+}
+.scrollTrigger{
+    opacity:0;
+}

@@ -1,0 +1,7 @@
+bootstrapのtooltipの適用が難しかった。
+以下の作法を守ること。
+・base.htmlで、jquery.min.jsとbootstrap.bundle.min.jsの読み込みは/bodyタグの直前に行うこと。
+・/bodyタグの直前にtooltipの初期化を行うこと。
+・ディレクトリ構成の確認。css,jsファイルがstaticフォルダに入っており、html側でのパスの指定も正しいかを確認すること。
+
+tooltipを出す方向が上で固定されてしまっている。現在も未解決。

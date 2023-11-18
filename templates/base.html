@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="{{url_for('static',filename='css/style.css')}}">
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <title>about Me</title>
+</head>
+<body>
+    <nav class="fixed-top navbar navbar-expand-lg bg-white">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#"></a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              
+              <li class="nav-item">
+                <a class="nav-link" href="#portfolio">PortFolio</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link " href="#links">links</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    {% block content %}
+    {% endblock %}
+    <div class="fixed-button">
+      <a href="#">
+        <button type="button">▲</button>
+      </a>
+    </div>
+    <script src="/static/js/jquery-3.5.1.min.js"></script>
+    <script src="/static/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/protonet-jquery.inview/1.1.2/jquery.inview.min.js"></script>
+    <script src="/static/js/scrollTrigger.js"></script>
+    <script>
+        <!--tooltip初期化-->
+        $(document).ready(function() {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
+</body>
+</html>
