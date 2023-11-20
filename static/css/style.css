@@ -31,3 +31,8 @@
 .scrollTrigger{
     opacity:0;
 }
+.bottomBar{
+    background:linear-gradient(to bottom right, rgb(236, 236, 236), rgb(199, 199, 199));
+    text-align: center;
+    padding:30px;
+}
