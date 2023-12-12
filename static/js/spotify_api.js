@@ -1,23 +1,36 @@
 
-const clientId = '44ea08153660400f8d37a81b9d862207';
-const clientSecret = 'ddbcab3a0d6d458db71da8a9b65955fd';
-const redirectUri = 'http://localhost:5000/spotifyAuthCallback';
+const devClientId = '44ea08153660400f8d37a81b9d862207';
+const devClientSecret = 'ddbcab3a0d6d458db71da8a9b65955fd';
+
+const clientId = '94bc57ecc432408aa2eaa1a5f3a05f3a';
+const clientSecret = '576a42bfd89a4fecac6258d1a2a760cc';
+
+const devRedirectUri ="http://127.0.0.1:5000/spotifyAuthCallback"
+const redirectUri = "https://nu3a-portfolio.onrender.com/spotifyAuthCallback"
+
 const authEndpoint = 'https://accounts.spotify.com/authorize';
 const tokenEndpoint = 'https://accounts.spotify.com/api/token';
 const scopes = ['user-read-recently-played'];
 
 
+const basicDevAuth = btoa(`${devClientId}:${devClientSecret}`);
 const basicAuth = btoa(`${clientId}:${clientSecret}`);
 
 function authorizeSpotify() {
-    window.location.href = `${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join('%20')}&response_type=code`;
+    if (location == ("https://nu3a-portfolio.onrender.com/spotifyAuthLogin")){
+        window.location.href = `${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join('%20')}&response_type=code`;
+    }else if (location=="http://127.0.0.1:5000/spotifyAuthLogin"){
+        window.location.href = `${authEndpoint}?client_id=${devClientId}&redirect_uri=${devRedirectUri}&scope=${scopes.join('%20')}&response_type=code`;
+    }else{
+    alert("incorrect URL")
+    }
 }
 
 //spotifyWebApiから取得した認証コードをtokens{access_token,refresh_token,get_date}に変換する。
 async function exchangeCodeToTokens(code){
     const params = new URLSearchParams({
         code: code,
-        redirect_uri: redirectUri,
+        redirect_uri: location == "https://nu3a-portfolio.onrender.com/spotifyAuthLogin"? redirectUri:devRedirectUri,
         grant_type: 'authorization_code'
     });
 
@@ -26,7 +39,7 @@ async function exchangeCodeToTokens(code){
         body: params.toString(),
         headers: {
           'content-type': 'application/x-www-form-urlencoded',
-          'Authorization': 'Basic ' + basicAuth
+          'Authorization': 'Basic ' + basicDevAuth
         },
       };
 
@@ -84,7 +97,7 @@ async function getRecentlyPlayedTracks() {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
-                'Authorization': 'Basic ' + basicAuth
+                'Authorization': location == "https://nu3a-portfolio.onrender.com/spotifyAuthLogin" ? 'Basic'+basicAuth :'Basic ' + basicDevAuth
             },
             body: body.toString(),
         }).then(response=>response.json()).then(data=>data);
