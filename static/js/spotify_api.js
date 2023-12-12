@@ -102,6 +102,7 @@ async function getRecentlyPlayedTracks() {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
                 'Authorization': location.host == "nu3a-portfolio.onrender.com" ? 'Basic '+basicAuth :'Basic ' + basicDevAuth
+                //"Basic "←必ず半角スペースを入れること
             },
             body: body.toString(),
         }).then(response=>response.json()).then(data=>data);
@@ -136,7 +137,8 @@ function displayTracks(tracks) {
     tracks.forEach(item => {
         const trackName = item.track.name;
         const artistName = item.track.artists[0].name;
-        const trackInfo = `<div class="card col-4" ><p>Track: ${trackName}</p><p> Artist: ${artistName}</p></div>`;
+        const imgurl = item.track.album.images[0].url
+        const trackInfo = `<div class="card col-4" ><img src=${imgurl} alt=${trackName} /><p class="trackTitle"> ${trackName}</p><p> Artist: ${artistName}</p></div>`;
         tracksDiv.innerHTML += trackInfo;
     });
 }

@@ -40,5 +40,9 @@
     height:100px;
 }
 .card{
-    font-size:12px;
+    font-size:24px;
+
+}
+.trackTitle{
+    font-weight:bold;
 }
