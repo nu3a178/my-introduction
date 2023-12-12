@@ -17,9 +17,9 @@ const basicDevAuth = btoa(`${devClientId}:${devClientSecret}`);
 const basicAuth = btoa(`${clientId}:${clientSecret}`);
 
 function authorizeSpotify() {
-    if (location == ("https://nu3a-portfolio.onrender.com/spotifyAuthLogin")){
+    if (location.host == ("nu3a-portfolio.onrender.com")){
         window.location.href = `${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join('%20')}&response_type=code`;
-    }else if (location=="http://127.0.0.1:5000/spotifyAuthLogin"){
+    }else if (location.host=="127.0.0.1:5000"){
         window.location.href = `${authEndpoint}?client_id=${devClientId}&redirect_uri=${devRedirectUri}&scope=${scopes.join('%20')}&response_type=code`;
     }else{
     alert("incorrect URL")
@@ -30,7 +30,7 @@ function authorizeSpotify() {
 async function exchangeCodeToTokens(code){
     const params = new URLSearchParams({
         code: code,
-        redirect_uri: location == "https://nu3a-portfolio.onrender.com/spotifyAuthLogin"? redirectUri:devRedirectUri,
+        redirect_uri: location.host == "nu3a-portfolio.onrender.com"? redirectUri:devRedirectUri,
         grant_type: 'authorization_code'
     });
 
@@ -39,7 +39,7 @@ async function exchangeCodeToTokens(code){
         body: params.toString(),
         headers: {
           'content-type': 'application/x-www-form-urlencoded',
-          'Authorization': location == "https://nu3a-portfolio.onrender.com/spotifyAuthLogin"? 'Basic'+basicAuth :'Basic ' + basicDevAuth
+          'Authorization': location.host == "nu3a-portfolio.onrender.com"? 'Basic'+basicAuth :'Basic ' + basicDevAuth
         },
       };
 
@@ -101,7 +101,7 @@ async function getRecentlyPlayedTracks() {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
-                'Authorization': location == "https://nu3a-portfolio.onrender.com" ? 'Basic'+basicAuth :'Basic ' + basicDevAuth
+                'Authorization': location.host == "nu3a-portfolio.onrender.com" ? 'Basic'+basicAuth :'Basic ' + basicDevAuth
             },
             body: body.toString(),
         }).then(response=>response.json()).then(data=>data);
