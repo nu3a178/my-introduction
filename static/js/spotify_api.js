@@ -39,11 +39,11 @@ async function exchangeCodeToTokens(code){
         body: params.toString(),
         headers: {
           'content-type': 'application/x-www-form-urlencoded',
-          'Authorization': location.host == "nu3a-portfolio.onrender.com"? 'Basic'+basicAuth :'Basic ' + basicDevAuth
+          'Authorization': location.host == "nu3a-portfolio.onrender.com"? 'Basic '+basicAuth :'Basic ' + basicDevAuth,
         },
       };
 
-    const data = await fetch(tokenEndpoint,options).then(response=> response.json()).then(data=>{return data});
+    const data = await fetch(tokenEndpoint,options).then(response=> response.json()).then(data=>{return data}).catch(error=>console.log(error));
     d = new Date();
     const tokens ={
         accessToken:data.access_token,
@@ -101,7 +101,7 @@ async function getRecentlyPlayedTracks() {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
-                'Authorization': location.host == "nu3a-portfolio.onrender.com" ? 'Basic'+basicAuth :'Basic ' + basicDevAuth
+                'Authorization': location.host == "nu3a-portfolio.onrender.com" ? 'Basic '+basicAuth :'Basic ' + basicDevAuth
             },
             body: body.toString(),
         }).then(response=>response.json()).then(data=>data);
