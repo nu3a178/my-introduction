@@ -5,8 +5,8 @@ const devClientSecret = 'ddbcab3a0d6d458db71da8a9b65955fd';
 const clientId = '94bc57ecc432408aa2eaa1a5f3a05f3a';
 const clientSecret = '576a42bfd89a4fecac6258d1a2a760cc';
 
-const devRedirectUri ="http://127.0.0.1:5000/spotifyAuthCallback"
-const redirectUri = "https://nu3a-portfolio.onrender.com/spotifyAuthCallback"
+const devRedirectUri ="http://127.0.0.1:5000/spotifyAuthCallback";
+const redirectUri = "https://nu3a-portfolio.onrender.com/spotifyAuthCallback";
 
 const authEndpoint = 'https://accounts.spotify.com/authorize';
 const tokenEndpoint = 'https://accounts.spotify.com/api/token';
@@ -81,7 +81,11 @@ async function getRecentlyPlayedTracks() {
     }).then(response=> {
         console.log(response)
         return response.json()
-    }).then(data=>data).catch(error=>console.log(error));
+    }).then(data=>{
+        console.log(data)
+        return data
+    }
+        ).catch(error=>console.log(error));
     console.log("getToken直後",tokens);
 
     //現在時間がトークンの取得時刻から1時間以上経っている場合、refreshトークンを使ってWeb APIからaccessトークンを再取得する。
@@ -97,7 +101,7 @@ async function getRecentlyPlayedTracks() {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
-                'Authorization': location == "https://nu3a-portfolio.onrender.com/spotifyAuthLogin" ? 'Basic'+basicAuth :'Basic ' + basicDevAuth
+                'Authorization': location == "https://nu3a-portfolio.onrender.com" ? 'Basic'+basicAuth :'Basic ' + basicDevAuth
             },
             body: body.toString(),
         }).then(response=>response.json()).then(data=>data);
