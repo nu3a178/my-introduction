@@ -12,6 +12,7 @@
     async function submit(){
     const code = new URLSearchParams(location.search).get("code");
     var tokens = await exchangeCodeToTokens(code);
+    alert("exchanged token"+JSON.stringify(tokens))
     await setTokensToForm(tokens);
 
     var tokens = {
@@ -19,7 +20,7 @@
         "refresh_token" :document.getElementById("refresh_token").value,
         "get_date" :document.getElementById("get_date").value
     }
-    
+    alert("set token"+JSON.stringify(tokens))
     var body = JSON.stringify(tokens);
     await fetch("/saveToken",{
         method:"POST",
@@ -27,7 +28,9 @@
                 'Content-Type':'application/json'
             },
         body: body
-    }).then(window.location.href = "/").catch(error=>error)
+    }).then(
+        window.location.href = "/"
+    ).catch(error=>error)
     
     }
 

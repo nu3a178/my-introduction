@@ -31,6 +31,7 @@ def saveToken():
       "getDate" : data.get('get_date')
     }
     saveTokens(tokens)
+    
     return "success"
 
 @app.route("/updateToken",methods=["POST"])
@@ -41,7 +42,6 @@ def updateToken():
       "refreshToken" : data.get('refresh_token'),
       "getDate" : data.get('get_date')
     }
-    print(tokens)
     saveTokens(tokens)
     return "success"
 
@@ -63,6 +63,7 @@ def saveTokens(tokens):
         fieldnames=["accessToken","refreshToken","getDate"]
         csvwriter = csv.DictWriter(csvfile,fieldnames=fieldnames)
         csvwriter.writerow(tokens)
+        print("savedToken",tokens)
     
 
 if __name__=='__main__':
