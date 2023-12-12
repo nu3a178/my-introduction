@@ -24,6 +24,7 @@ def spotifyAuthCallback():
 @app.route("/saveToken",methods=["POST"])
 def saveToken():
     data = request.get_json()
+    print(data)
     tokens = {
       "accessToken" :data.get('access_token'),
       "refreshToken" : data.get('refresh_token'),

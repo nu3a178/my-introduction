@@ -39,7 +39,7 @@ async function exchangeCodeToTokens(code){
         body: params.toString(),
         headers: {
           'content-type': 'application/x-www-form-urlencoded',
-          'Authorization': 'Basic ' + basicDevAuth
+          'Authorization': location == "https://nu3a-portfolio.onrender.com/spotifyAuthLogin"? 'Basic'+basicAuth :'Basic ' + basicDevAuth
         },
       };
 

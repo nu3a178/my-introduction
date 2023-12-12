@@ -10,7 +10,7 @@
 <script src="/static/js/spotify_api.js"></script>
 <script>
     async function submit(){
-    const code = window.location.search.substring(6);
+    const code = new URLSearchParams(location.search).get("code");
     var tokens = await exchangeCodeToTokens(code);
     await setTokensToForm(tokens);
 
@@ -19,7 +19,7 @@
         "refresh_token" :document.getElementById("refresh_token").value,
         "get_date" :document.getElementById("get_date").value
     }
-
+    
     var body = JSON.stringify(tokens);
     await fetch("/saveToken",{
         method:"POST",
