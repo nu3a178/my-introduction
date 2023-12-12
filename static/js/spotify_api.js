@@ -74,6 +74,7 @@ function updateTokens(tokens){
 
 //最近聞いたSpotifyの曲を取得する。
 async function getRecentlyPlayedTracks() {
+    document.getElementById("spotifyButton").style.display="none";
 
     //サーバの'/getToken'にGETリクエストを送り、spotify_tokens.csvファイルに記されているトークン情報を取得する。
     var tokens = await fetch("/getToken",{
@@ -88,7 +89,7 @@ async function getRecentlyPlayedTracks() {
     console.log("getTokenからの返り値",tokens);
 
     //現在時間がトークンの取得時刻から1時間以上経っている場合、refreshトークンを使ってWeb APIからaccessトークンを再取得する。
-    if (new Date().getTime() - tokens.get_date>36000000 ){
+    if (new Date().getTime() - tokens.get_date>3600000 ){
 
         const body = new URLSearchParams({
             grant_type:'refresh_token',
