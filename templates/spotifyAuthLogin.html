@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}authentication{% endblock %}
+{% block content %}
+<div class="behindTopBar"></div>
+<p>Input Administrator Password</p>
+
+    <input type="password" id="pass" name="pass"  maxlength="8" size="10" />
+    <button onclick="validation()">Enter</button>
+
+<label style="color:red; display:none" id="incorrect" >Incorrect Password</label>
+
+
+<script>
+    const PASSWORD = "971111";
+    function validation(){
+        var p = document.getElementById("pass").value;
+        if (p == PASSWORD){
+            alert("spotify認証を開始します。");
+            authorizeSpotify();
+        }else{
+            document.getElementById("incorrect").style.display = "block";
+        }
+    }
+
+</script>
+{% endblock %}

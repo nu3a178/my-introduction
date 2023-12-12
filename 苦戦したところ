@@ -5,3 +5,9 @@ bootstrapのtooltipの適用が難しかった。
 ・ディレクトリ構成の確認。css,jsファイルがstaticフォルダに入っており、html側でのパスの指定も正しいかを確認すること。
 
 tooltipを出す方向が上で固定されてしまっている。現在も未解決。
+
+クライアントとサーバ側で変数名が違ってたので参照の際にトラブった。
+
+POSTリクエストのheadersに含めるcontent-typeについて
+json形式の場合→application/json
+URLparamsの場合→application/x-www-form-urlencoded

@@ -36,3 +36,9 @@
     text-align: center;
     padding:30px;
 }
+.behindTopBar{
+    height:100px;
+}
+.card{
+    font-size:12px;
+}
