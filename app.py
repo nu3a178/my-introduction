@@ -48,8 +48,6 @@ def updateToken():
 def getToken():
     with open('spotify_tokens.csv','r')as csvfile:
         csvreader = csv.reader(csvfile)
-        headers = next(csvreader)
-        next(csvreader)
         data = next(csvreader)
         tokens = {
           "access_token" :data[0],
@@ -63,7 +61,6 @@ def saveTokens(tokens):
     with open('spotify_tokens.csv','w')as csvfile:
         fieldnames=["accessToken","refreshToken","getDate"]
         csvwriter = csv.DictWriter(csvfile,fieldnames=fieldnames)
-        csvwriter.writeheader()
         csvwriter.writerow(tokens)
     
 
