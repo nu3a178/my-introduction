@@ -82,52 +82,52 @@ async function getRecentlyPlayedTracks() {
         console.log(response)
         return response.json()
     }).then(data=>{
-        console.log(data)
         return data
     }
         ).catch(error=>console.log(error));
-    console.log("getToken直後",tokens);
+    console.log("getTokenからの返り値",tokens);
 
     //現在時間がトークンの取得時刻から1時間以上経っている場合、refreshトークンを使ってWeb APIからaccessトークンを再取得する。
-    var now = new Date().getTime()
-    if (now - tokens.get_date>3600000 ){
+    if (new Date().getTime() - tokens.get_date>36000000 ){
 
         const body = new URLSearchParams({
             grant_type:'refresh_token',
             refresh_token:tokens.refresh_token,
         });
-        console.log("この内容でPOSTします",body.toString())
-        data = await fetch(tokenEndpoint,{
+        console.log("トークンを更新します。 クエリ:",body.toString())
+        var newTokens = await fetch(tokenEndpoint,{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
-                'Authorization': location.host == "nu3a-portfolio.onrender.com" ? 'Basic '+basicAuth :'Basic ' + basicDevAuth
+                'Authorization': location.host == "nu3a-portfolio.onrender.com"? 'Basic '+basicAuth :'Basic ' + basicDevAuth,
                 //"Basic "←必ず半角スペースを入れること
             },
             body: body.toString(),
-        }).then(response=>response.json()).then(data=>data);
-        console.log("webAPIから取得したtoken",data);
+        }).then(response=>response.json()).then(data=>data).catch(error=>console.log(error));
+        console.log("token更新、SpotifyAPIからの返り値:",newTokens);
         
         
-        tokens.access_token = data.access_token;
+        tokens.access_token = newTokens.access_token;
         tokens.get_date = new Date().getTime();
         
         console.log("updateをかけるtokenの内容",tokens)
-        await updateTokens(tokens)
+        updateTokens(tokens)
 
     }else{
-        console.log("less than 1hour")
+        console.log("最後のトークン取得から1時間以内のため、トークンを更新する必要はありません。")
     }
 
     const recentlyPlayedUrl = 'https://api.spotify.com/v1/me/player/recently-played';
-    access_token = tokens.access_token
+    var access_token = tokens.access_token
     fetch(recentlyPlayedUrl, {
         headers: {
             'Authorization': `Bearer ${access_token}`
         }
     })
         .then(response => response.json())
-        .then(data => displayTracks(data.items))
+        .then(data => {
+            console.log("Spotify APIからのデータ取得成功")
+            displayTracks(data.items)})
         .catch(error => console.error('Error:', error));
 }
 
@@ -138,7 +138,7 @@ function displayTracks(tracks) {
         const trackName = item.track.name;
         const artistName = item.track.artists[0].name;
         const imgurl = item.track.album.images[0].url
-        const trackInfo = `<div class="card col-4" ><img src=${imgurl} alt=${trackName} /><p class="trackTitle"> ${trackName}</p><p> Artist: ${artistName}</p></div>`;
+        const trackInfo = `<div class="col-3" ><div class="card"><img src=${imgurl} alt=${trackName} /><p class="trackTitle">${trackName}</p><p>${artistName}</p></div></div>`;
         tracksDiv.innerHTML += trackInfo;
     });
 }
